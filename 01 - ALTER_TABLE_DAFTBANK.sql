@@ -1,0 +1,30 @@
+ALTER TABLE dbo.DAFTBANK
+ADD
+	KDBANKR NVARCHAR(255) NULL,
+	KDSKN NVARCHAR(255) NULL,
+	KDRTGS NVARCHAR(255) NULL,
+	KDSWIFT NVARCHAR(255) NULL,
+	KDKOTA NVARCHAR(255) NULL,
+	CONSTRAINT UC_DAFTBANK UNIQUE(KDBANK, NMBANK, AKBANK, CABANG, KDBANKR, KDSKN, KDRTGS, KDSWIFT, KDKOTA);
+
+
+--INSERT INTO dbo.DAFTBANK
+--SELECT TOP(15) CASE LEN([db].[No])
+--           WHEN 1 THEN
+--               RIGHT('0' + CAST((ROW_NUMBER() OVER (ORDER BY [No]) + @@ROWCOUNT) AS VARCHAR(2)), 2)
+--           ELSE
+--               CAST((ROW_NUMBER() OVER (ORDER BY [No]) + 1) AS VARCHAR(3))
+--       END AS KDBANK,
+--       db.Full_Bank_Name AS NMBANK,
+--       db.Short_Bank_Name AS AKBANK,
+--	   '-' AS ALAMAT,
+--	   '-' AS TELEPON,
+--	   '-' AS CABANG,
+--	   db.Code_Bank AS KDBANKR,
+--	   db.SKN_Code AS KDSKN,
+--	   db.RTGS_Code AS KDRTGS,
+--	   db.Swift_Code AS KDSWIFT,
+--	   db.City_Code AS KDKOTA
+--FROM CMSv3_Companion.dbo.DAFT_BANK db
+--WHERE db.No < 99
+--ORDER BY db.No;
