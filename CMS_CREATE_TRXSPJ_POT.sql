@@ -1,16 +1,21 @@
---USE [V@LID49V6_2019]
---GO
+USE [V@LID49V6_2020_CMS]
+GO
 
-/****** Object:  StoredProcedure [dbo].[CMS_CREATE_TRXSPJ_POT]    Script Date: 20/02/2020 01:16:39 ******/
+/****** Object:  StoredProcedure [dbo].[CMS_CREATE_TRXSPJ_POT]    Script Date: 07/10/2020 01:14:31 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
+
 CREATE PROCEDURE [dbo].[CMS_CREATE_TRXSPJ_POT]
 (@UnitKey NVARCHAR(255), @NoBPK NVARCHAR(255))
 AS
+
+--DECLARE @UnitKey NVARCHAR(255), @NoBPK NVARCHAR(255)
+--set @UnitKey = '74_       '
+--set @NoBPK = '01018/BPK/UP/4.00.01.01/02/2020'
 BEGIN
 DECLARE @Tahun INT, @NoPungut NVARCHAR(255), @NoSetor NVARCHAR(255)
 SET @Tahun=(SELECT TOP(1)CAST(p.CONFIGVAL AS INT)
@@ -24,8 +29,8 @@ SET @NoSetor = (SELECT TOP(1) p.NOSETOR FROM dbo.PJKPS p WHERE p.NOPUNGUT = @NoP
 
 SELECT 
 @Tahun AS Tahun,
-b.NOBKPAJAK AS No_Bukti,
-CAST(b2.KDSTATUS AS INT) AS Jns_Dok,
+RTRIM(@NoBPK) AS No_Bukti,
+21 AS Jns_Dok,
 SUBSTRING(j2.kodeAkunPajak, 1, 1) AS Kd_Rek_1,
 SUBSTRING(j2.kodeAkunPajak, 2, 1) AS Kd_Rek_2,
 SUBSTRING(j2.kodeAkunPajak, 3, 1) AS Kd_Rek_3,
@@ -44,6 +49,6 @@ INNER JOIN dbo.JPAJAKKEU j2
 ON j2.KDPAJAK = j.KDPAJAK
 WHERE b.NOBKPAJAK = @NoSetor AND b.UNITKEY = @UnitKey
 END
-GO
 
+GO
 
